@@ -83,13 +83,9 @@
 					<div class="checkbox">
 						<label><input type="checkbox"> Remember me</label>
 					</div>
-					<div class="modal-footer">
-						<div class="row">
-							<div class="col-md-offset-3 pull-left">
-								<button type="submit" class="btn btn-sm btn-success"> <span class="glyphicon glyphicon-off"></span> Login</button>
-								<button type="button" class="btn btn-sm btn-default"> <span class="glyphicon glyphicon-remove"></span> Cancel</button>
-							</div>
-						</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-sm btn-success btn-block"> <span class="glyphicon glyphicon-off"></span> Login</button>
+						<button type="button" class="btn btn-sm btn-danger btn-block"> <span class="glyphicon glyphicon-remove"></span> Cancel</button>
 					</div>
 					<c:if test="${not empty message}">
 					<div class="alert alert-cancel alert-dismissible" role="alert">
