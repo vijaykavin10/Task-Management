@@ -94,7 +94,12 @@ public class UserController extends BaseController {
 	}
 	
 	@RequestMapping(value="/{userName}/getView")
-	public ModelAndView getToTaskView(HttpServletRequest request, @PathVariable(value = "userName") String userName, HttpServletResponse response) {
+	public ModelAndView getToUserPage(HttpServletRequest request, @PathVariable(value = "userName") String userName, HttpServletResponse response) {
+		return prepareUserView(userName);
+	}
+	
+	@RequestMapping(value="/{userName}/view")
+	public ModelAndView getView(HttpServletRequest request, @PathVariable(value = "userName") String userName, HttpServletResponse response) {
 		return prepareUserView(userName);
 	}
 	

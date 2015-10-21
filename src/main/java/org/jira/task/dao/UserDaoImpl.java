@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.jira.task.table.Task;
 import org.jira.task.table.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -58,4 +59,54 @@ public class UserDaoImpl implements UserDao {
 		return userList;
 	}
 	
+	public int getTaskCreatedCount(String userName) {
+		String sql = "SELECT COUNT(*) FROM task WHERE reporter = :REPORTER";
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+		query.setParameter("REPORTER", userName);
+		int count = Integer.parseInt(query.list().get(0).toString());
+		return count;
+	}
+	
+	public List<Task> getUserCreatedTask(String userName) {
+		String sql = "FROM Task WHERE reporter = :REPORTER";
+		Query query = sessionFactory.getCurrentSession().createQuery(sql);
+		query.setParameter("REPORTER", userName);
+		List<Task> createdTasks = query.list();
+		return createdTasks;
+	}
+	
+	public int getTaskCompletedCount(String userName) {
+		String sql = "SELECT COUNT(*) FROM task WHERE status = 'Fixed' AND assignee = :ASSIGNEE";
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+		query.setParameter("ASSIGNEE", userName);
+		int count = Integer.parseInt(query.list().get(0).toString());
+		return count;
+	}
+	
+	
+	public int getTaskAssignedCount(String userName) {
+		String sql = "SELECT COUNT(*) FROM task WHERE assignee = :ASSIGNEE";
+		Query query = sessionFactory.getCurrentSession().createSQLQuery(sql);
+		query.setParameter("ASSIGNEE", userName);
+		int count = Integer.parseInt(query.list().get(0).toString());
+		return count;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Task> getUserAssignedTask(String userName) {
+		String sql = "FROM Task WHERE assignee = :ASSIGNEE";
+		Query query = sessionFactory.getCurrentSession().createQuery(sql);
+		query.setParameter("ASSIGNEE", userName);
+		List<Task> assignedTasks = query.list();
+		return assignedTasks;
+	}
+	@SuppressWarnings("unchecked")
+	public List<Task> getUserTaskByStatus(String userName, String status) {
+		String sql = "FROM Task WHERE assignee = :ASSIGNEE AND status = :STATUS";
+		Query query = sessionFactory.getCurrentSession().createQuery(sql);
+		query.setParameter("ASSIGNEE", userName);
+		query.setParameter("STATUS", status);
+		List<Task> taskList = query.list();
+		return taskList;
+	}
 }

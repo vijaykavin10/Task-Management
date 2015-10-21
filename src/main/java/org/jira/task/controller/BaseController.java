@@ -101,4 +101,10 @@ public class BaseController {
 		model.addObject("priorityTypes", constants.priorityTypes);
 		return model;
 	}
+	
+	public ModelAndView prepareUserPage(String userName) {
+		ModelAndView model = new ModelAndView("viewUser");
+		model.addObject("user", userService.getUser(userName));
+		return model;
+	}
 }

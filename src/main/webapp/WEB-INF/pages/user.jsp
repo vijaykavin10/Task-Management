@@ -14,12 +14,11 @@
 <spring:url value="/user/${user.userName}/getToHome" var="getHomePage" />
 
 <div class="jumbotron">
-	<div class="container">
-<!-- 		<h3 align="center">Task Management</h3> -->
-<h3 align="center">${user.userName}</h3>
+	<h3 align="center">${user.userName}</h3>
+	<div class="container pull-right">
+		<a class="btn btn-primary btn-lg" href="#createUserModal" data-toggle="modal" role="button">Create User</a>
+		<a class="btn btn-primary btn-lg" href="${getHomePage}" role="button">Home</a>
 	</div>
-	<a class="btn btn-primary btn-lg" href="#createUserModal" data-toggle="modal" role="button">Create User</a>
-	<a class="btn btn-primary btn-lg" href="${getHomePage}" role="button">Home</a>
 </div>
 
 <div class="container" style="height: 350px">
@@ -31,6 +30,7 @@
 					<th>UserName</th>
 					<th>Email Id</th>
 					<th>UserType</th>
+					<th>Action</th>
 				</tr>
 			</thead>				
 			<c:forEach var="userItem" items="${users}">
@@ -39,6 +39,11 @@
 					<td> ${userItem.userName} </td>
 					<td> ${userItem.email} </td>
 					<td> ${userItem.userType}</td>
+					<spring:url value="/task/${user.userName}/view" var = "viewUserUrl"/>
+					
+					<td>
+						<button class="btn btn-info" onclick="location.href='${viewUserUrl}'">View</button> 
+					</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -48,7 +53,6 @@
 <div class="modal fade" id="createUserModal" role="dialog">
 	<div class="modal-dialog">
 
-		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
